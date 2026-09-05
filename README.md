@@ -1,6 +1,6 @@
 # Active Inference as a Placement Strategy in ECLYPSE
 
-MSc project studying **Active Inference (AIF)** as a service-placement strategy
+Practical Course 2 project studying **Active Inference (AIF)** as a service-placement strategy
 in the [ECLYPSE](https://github.com/eclypse-org/eclypse) edge-cloud continuum
 simulator. The use case is a government water-usage declaration service deployed
 across a hierarchical edge-fog-cloud infrastructure.
