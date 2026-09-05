@@ -9,8 +9,6 @@ genuinely resource-constrained.
 
 Directly comparable to uc2_constrained_aif_experiment.py.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 from time import time

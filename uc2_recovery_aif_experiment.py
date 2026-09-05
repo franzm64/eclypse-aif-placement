@@ -6,8 +6,6 @@ Revival rate sampled each tick from N(mu=kill_probability, sigma=REVIVE_SIGMA).
 Identical infrastructure and seed to uc2_recovery_bestfit_experiment.py —
 only the placement strategy differs (AIFStrategy vs BestFitStrategy).
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 from time import time

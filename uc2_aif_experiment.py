@@ -11,8 +11,6 @@ are directly comparable:
 
 Only the placement strategy changes: BestFitStrategy → AIFStrategy.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 from time import time

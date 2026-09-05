@@ -2,9 +2,6 @@
 Smoke test for UC1 (grid_analysis). Runs 3 strategies x 1 config = 3 simulations,
 20 steps each. Confirms Ray, ECLYPSE, and all imports work correctly.
 """
-import sys
-sys.path.insert(0, "eclypse")  # repo root — exposes examples/ as a top-level package
-
 import ray
 from examples.grid_analysis.applications import get_apps
 from examples.grid_analysis.infrastructure import get_infrastructure

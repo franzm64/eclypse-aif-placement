@@ -2,8 +2,6 @@
 Debug script: trace why min-energy never places any applications.
 Runs a single 5-step simulation and instruments the place() method.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 import types
 from examples.grid_analysis.applications import get_apps

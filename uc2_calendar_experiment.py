@@ -8,8 +8,6 @@ Refinements vs first run (results/uc2_calendar-20260823_153717):
 
 900 steps  =  3 months × 30 days × 10 ticks/day
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 from time import time

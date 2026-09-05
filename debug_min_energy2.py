@@ -1,8 +1,6 @@
 """
 Deep debug: trace why min-energy places 0 services.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from examples.grid_analysis.applications import get_apps
 from examples.grid_analysis.infrastructure import get_infrastructure

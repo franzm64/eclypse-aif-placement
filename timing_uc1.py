@@ -2,8 +2,6 @@
 Timing run for the scaled-down UC1 grid (72 simulations, sequential).
 Runs every combination, reports per-simulation time and total wall clock.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 import itertools
 import time

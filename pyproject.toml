@@ -1,13 +1,20 @@
 [project]
 name = "eclypse-wrk"
 version = "0.1.0"
-description = "Add your description here"
+description = "AIF placement study on the ECLYPSE edge-cloud continuum simulator"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "eclypse",
+    "numpy>=1.26",
+    "matplotlib>=3.8",
+    "psutil>=5.9",
     "torch>=2.13.0",
     "torchvision>=0.28.0",
 ]
+
+[tool.uv.sources]
+eclypse = { path = "eclypse", editable = true }
 
 [[tool.uv.index]]
 url = "https://download.pytorch.org/whl/cpu"

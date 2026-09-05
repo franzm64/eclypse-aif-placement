@@ -9,8 +9,6 @@ Long-run equilibrium: ~50% nodes alive on average.
 Directly comparable to uc2_recovery_aif_experiment.py (same infrastructure,
 same seed, only strategy differs).
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 from time import time

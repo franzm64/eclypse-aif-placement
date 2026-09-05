@@ -6,8 +6,6 @@ Three-panel layout (shared x-axis):
   Middle : unreachable fraction — BestFit (red) vs AIF (purple)
   Bottom : calendar phase colour bar (derived from tick number)
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 

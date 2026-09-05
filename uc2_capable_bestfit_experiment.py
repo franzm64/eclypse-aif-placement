@@ -10,8 +10,6 @@ Key differences from the earlier constrained experiment:
 
 Directly comparable to uc2_capable_aif_experiment.py.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 from time import time

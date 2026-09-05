@@ -7,8 +7,6 @@ Three panels sharing the x-axis:
   Middle : fraction of nodes where app is unreachable (inf user_delay)
   Bottom : calendar phase colour bar
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 

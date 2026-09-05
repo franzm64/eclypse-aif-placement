@@ -7,8 +7,6 @@ Three-panel layout (shared x-axis):
   Middle : unreachable fraction
   Bottom : calendar phase colour bar
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 

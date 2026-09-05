@@ -6,8 +6,6 @@ Three-panel layout (shared x-axis):
   Middle : unreachable fraction — RAW (no smoothing) so BestFit spikes are visible
   Bottom : calendar phase colour bar (12 months)
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 

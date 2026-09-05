@@ -3,8 +3,6 @@ UC1 experiment: placement strategy comparison.
 432 simulations (3 strategies x 3 topologies x 2 nodes x 2 seeds x 2 loads x 6 policies),
 600 steps each. Results saved to results/uc1/results.csv.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 import itertools
 import time

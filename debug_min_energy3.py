@@ -2,8 +2,6 @@
 Final debug: call place() exactly as ECLYPSE does (via infrastructure.available)
 and trace service-by-service what happens.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from examples.grid_analysis.applications import get_apps
 from examples.grid_analysis.infrastructure import get_infrastructure

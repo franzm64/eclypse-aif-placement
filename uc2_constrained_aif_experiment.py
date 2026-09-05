@@ -7,8 +7,6 @@ With resource constraints, AIF's pack/spread/balance actions have meaningfully
 different resource footprints: pack co-locates services (efficiency risk),
 spread distributes them (resilience), balance tracks user demand.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 from time import time

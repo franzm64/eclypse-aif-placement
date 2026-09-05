@@ -12,16 +12,6 @@ Three services run as real Ray Actors:
 
 Trainer patched to use CPU when CUDA is unavailable.
 """
-import os
-import sys
-
-# Must be set before Ray starts so all worker processes inherit it.
-_eclypse_abs = str((lambda p: p / "eclypse")(
-    __import__("pathlib").Path(__file__).parent
-).resolve())
-os.environ["PYTHONPATH"] = _eclypse_abs + os.pathsep + os.environ.get("PYTHONPATH", "")
-sys.path.insert(0, _eclypse_abs)
-
 from pathlib import Path
 from time import time
 

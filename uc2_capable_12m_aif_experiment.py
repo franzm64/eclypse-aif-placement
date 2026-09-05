@@ -4,8 +4,6 @@ UC2-Capable AIF — 12-month run.
 Same infrastructure and application as uc2_capable_aif_experiment.py;
 only MONTHS=12 (3600 ticks) for a full-year view of seasonal patterns.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 from time import time

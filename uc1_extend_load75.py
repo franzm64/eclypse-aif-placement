@@ -2,8 +2,6 @@
 Add load=0.75 across all node sizes (20, 50, 100, 300) and append to results.
 432 simulations: 3 strategies x 3 topologies x 4 nodes x 2 seeds x 6 policies.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 import itertools
 import time

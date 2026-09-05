@@ -8,8 +8,6 @@ Three panels share the same x-axis:
   Middle : day-of-month indicator with deadline and holiday markers
   Bottom : cumulative absolute user-count (summed across all 187 nodes)
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 import random
 import numpy as np

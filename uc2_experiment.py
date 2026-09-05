@@ -3,8 +3,6 @@ UC2 experiment: response time and user delay for SockShop under varying user loa
 Reproduces the paper's UC2 (4167 steps, 187-node hierarchical infrastructure,
 user load doubles at ticks 1000/3000 and halves at 2000/4000).
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 from pathlib import Path
 from time import time

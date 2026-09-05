@@ -2,8 +2,6 @@
 Run only the nodes=300 simulations and append to existing results/uc1/results.csv.
 216 simulations: 3 strategies x 3 topologies x 2 seeds x 2 loads x 6 policies.
 """
-import sys
-sys.path.insert(0, "eclypse")
 
 import itertools
 import time
