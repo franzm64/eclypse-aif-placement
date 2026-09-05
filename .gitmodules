@@ -1,0 +1,4 @@
+[submodule "eclypse"]
+	path = eclypse
+	url = git@github.com:franzm64/eclypse.git
+	branch = aif-placement

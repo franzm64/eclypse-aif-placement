@@ -1,0 +1,22 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Raw simulation output (CSV files are large; keep only rendered figures)
+results/**/csv/
+results/**/csv
+
+# Editor backups and session artefacts
+*.md~
+Deploy_keys.png
+.claude/
+
+# uv managed lock (keep pyproject.toml; lock is reproducible from it)
+# uv.lock  ← intentionally tracked so exact deps are reproducible

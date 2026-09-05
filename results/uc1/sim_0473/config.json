@@ -1,0 +1,31 @@
+{
+    "step_every_ms": 0.0,
+    "timeout": null,
+    "max_steps": 600,
+    "events": [
+        "response_time",
+        "used_nodes",
+        "is_placed",
+        "simulation_time",
+        "step_number",
+        "alive_nodes",
+        "seed",
+        "start",
+        "enact",
+        "step",
+        "stop"
+    ],
+    "reporters": [
+        "csv"
+    ],
+    "include_default_metrics": false,
+    "seed": 3997,
+    "path": "results/uc1/sim_0473",
+    "log_to_file": false,
+    "log_level": "CRITICAL",
+    "report_chunk_size": 100,
+    "report_format": "csv",
+    "report_backend": "pandas",
+    "remote": false,
+    "default_strategy": null
+}

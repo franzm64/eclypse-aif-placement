@@ -1,0 +1,31 @@
+{
+    "step_every_ms": 0.0,
+    "timeout": null,
+    "max_steps": 900,
+    "events": [
+        "user_count",
+        "user_delay",
+        "response_time",
+        "cpu_usage",
+        "memory_usage",
+        "simulation_time",
+        "tick_phase",
+        "start",
+        "enact",
+        "step",
+        "stop"
+    ],
+    "reporters": [
+        "csv"
+    ],
+    "include_default_metrics": false,
+    "seed": 42,
+    "path": "results/uc2_calendar-20260823_153717",
+    "log_to_file": false,
+    "log_level": "CRITICAL",
+    "report_chunk_size": 100,
+    "report_format": "csv",
+    "report_backend": "pandas",
+    "remote": false,
+    "default_strategy": null
+}

@@ -1,0 +1,32 @@
+{
+    "step_every_ms": 1000,
+    "timeout": null,
+    "max_steps": 600,
+    "events": [
+        "img_counter",
+        "accuracy",
+        "model_change",
+        "featured_latency",
+        "cpu_usage",
+        "memory_usage",
+        "remote_cpu_usage",
+        "remote_memory_usage",
+        "start",
+        "enact",
+        "step",
+        "stop"
+    ],
+    "reporters": [
+        "csv"
+    ],
+    "include_default_metrics": false,
+    "seed": 2,
+    "path": "results/uc3-20260708_170801",
+    "log_to_file": true,
+    "log_level": "ECLYPSE",
+    "report_chunk_size": 100,
+    "report_format": "csv",
+    "report_backend": "pandas",
+    "remote": true,
+    "default_strategy": null
+}
