@@ -697,6 +697,14 @@ Before running a plot script, open it in a text editor and update the two path
 constants near the top of the file --- \texttt{BESTFIT\_CSV} and
 \texttt{AIF\_CSV} --- to point at the timestamped \texttt{csv/} directories
 produced in the previous step.
+When updating several plot scripts at once, \texttt{sed} is more efficient than
+opening each file manually.
+Replace the old timestamp with the new one across all matching scripts in one
+command (substitute the actual timestamps accordingly):
+
+\begin{lstlisting}[language=bash]
+$ sed -i 's/OLD_TIMESTAMP/NEW_TIMESTAMP/g' uc2_capable_*.py
+\end{lstlisting}
 
 Generate the main comparison figure (Figure~\ref{fig:uc2_12m}):
 
