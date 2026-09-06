@@ -9,6 +9,7 @@ dependencies = [
     "numpy>=1.26",
     "matplotlib>=3.8",
     "psutil>=5.9",
+    "pyarrow>=14.0",
     "torch>=2.13.0",
     "torchvision>=0.28.0",
 ]
