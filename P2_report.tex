@@ -35,6 +35,7 @@
 %% ── Code listings ─────────────────────────────────────────────────────────────
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{upquote}         % straight apostrophes/quotes in listings
 \lstset{
   basicstyle=\ttfamily\small,
   backgroundcolor=\color{gray!10},
@@ -42,7 +43,6 @@
   breaklines=true,
   captionpos=b,
   columns=fullflexible,    % prevents inter-character padding that appears as spaces on copy/paste
-  keepspaces=true,
 }
 
 %% ── Hyperlinks ────────────────────────────────────────────────────────────────
@@ -214,10 +214,19 @@ Three modifications were made to the simulator and are documented in the
 \label{sec:infra}
 
 The infrastructure is a 187-node hierarchical graph with four tiers
-representing edge devices, fog nodes, regional cloud nodes, and a central cloud.
+representing edge devices, fog nodes, regional cloud nodes, and central cloud nodes.
 Tier sizes follow the partition $[0.35, 0.30, 0.20, 0.15]$ (65, 56, 37, 29
 nodes respectively), with full bipartite connectivity between adjacent tiers
 (connectivity = 1.0) and no within-tier edges.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.95\linewidth]{results/infra_topology.pdf}
+  \caption{Four-tier infrastructure topology (187 nodes).  Each dot is a node;
+           edges between adjacent tiers are drawn at low opacity to convey the
+           full bipartite connectivity without visual overload.}
+  \label{fig:infra_topology}
+\end{figure}
 
 Node resources are drawn at initialisation from $\mathrm{Uniform}(2, 8)$ cores
 (CPU) and $\mathrm{Uniform}(3, 8)$\,GB (RAM), ensuring every node can host any
@@ -243,6 +252,10 @@ deadline, post-deadline), with per-phase Gaussian user-count distributions.
 Days 1--10 and 18--28 are normal; days 13--14 are pre-deadline; day 15 is the
 monthly deadline; days 16--17 are post-deadline; days 11--12 and 29--30 are
 holidays.
+These five phases are a structural property of the environment; BestFit
+operates through all of them without observing them, while the \gls{aif}
+strategy uses them as the first axis of its world model
+(Section~\ref{sec:aif}).
 
 \subsection{Application}
 \label{sec:application}
@@ -278,20 +291,65 @@ ShippingService  & 2 & 1.5 \\
 \subsection{Active Inference placement strategy}
 \label{sec:aif}
 
-The \gls{aif} strategy (\texttt{AIFStrategy}) uses a discrete \gls{pomdp}
-generative model with the NumpyAIF backend, following the notation of
-Friston et al.~\cite{friston2017} and Heins et al.~\cite{pymdp}.
+BestFit exploits only instantaneous per-node resource residuals and is
+entirely unaware of the simulation environment's broader temporal and load
+structure.
+\gls{aif} takes the opposite approach: it builds an explicit generative model
+of the world and uses that model to steer placement decisions.
+
+The environment has a natural discrete structure that \gls{aif} can exploit.
+The calendar policy partitions every day into one of five named phases
+(Section~\ref{sec:infra}); infrastructure health and demand level are
+continuous signals that can be coarsely but usefully bucketed.
+\gls{aif} represents this structure as a $5\times3\times3=45$-cell grid ---
+a finite lattice of world states over which it maintains probability beliefs
+at every tick (Table~\ref{tab:state_grid}).
+The 5-phase axis is environment-given; the 3-bin health and demand axes are
+modelling choices that trade representational fidelity against inference cost.
+Because the three factors are independent, the agent stores three separate
+belief vectors of lengths 5, 3, and 3 (11 probability values in total)
+rather than a monolithic 45-entry joint distribution, updating them by
+Bayes' rule each tick.
+
+\begin{table}[ht]
+\centering
+\caption{AIF hidden-state grid: three independent factors spanning a joint
+         $5\times3\times3=45$-cell world model.
+         The calendar-phase axis is environment-given; health and demand
+         bin boundaries are modelling choices.}
+\label{tab:state_grid}
+\begin{tabular}{@{}lrp{8.5cm}@{}}
+\toprule
+\textbf{Factor} & \textbf{Cells} & \textbf{Values and observation thresholds} \\
+\midrule
+Calendar phase  & 5
+  & holiday, normal, pre-deadline, deadline, post-deadline;
+    mapped from day-of-month via a fixed lookup. \\[4pt]
+Infra.\ health  & 3
+  & healthy ($f < 0.15$), degraded ($0.15 \le f < 0.35$), critical
+    ($f \ge 0.35$), where $f$ is the fraction of dead nodes. \\[4pt]
+Demand level    & 3
+  & low ($u < 300$), medium ($300 \le u < 1{,}500$), high
+    ($u \ge 1{,}500$), where $u$ is mean \texttt{user\_count}
+    across all nodes. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The generative model follows the notation of Friston et al.~\cite{friston2017}
+and Heins et al.~\cite{pymdp}, and is specified by the matrices $A$, $B$, $C$,
+$D$ described below.
 
 \subsubsection{Factorisation}
-The hidden state is factorised into three independent factors:
+The hidden state is factorised into three independent factors
+(Table~\ref{tab:state_grid}):
 \begin{itemize}
   \item $s^{(0)}$ \textbf{Calendar phase} (5 states): holiday, normal,
         pre-deadline, deadline, post-deadline.
-  \item $s^{(1)}$ \textbf{Infrastructure health} (3 states): healthy
-        ($<$15\% nodes dead), degraded (15--35\%), critical ($>$35\%).
+  \item $s^{(1)}$ \textbf{Infrastructure health} (3 states): healthy,
+        degraded, critical.
         This is the only factor influenced by the agent's action.
-  \item $s^{(2)}$ \textbf{Demand level} (3 states): low, medium, high,
-        thresholded on mean \texttt{user\_count} across nodes.
+  \item $s^{(2)}$ \textbf{Demand level} (3 states): low, medium, high.
 \end{itemize}
 
 \subsubsection{Prior beliefs (\textbf{D}-matrix)}
