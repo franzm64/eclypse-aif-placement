@@ -620,6 +620,23 @@ during the study, including ECLYPSE itself (installed in editable mode from the
 $ uv sync
 \end{lstlisting}
 
+\noindent\textbf{Note on download behaviour.}
+On a machine where \texttt{uv sync} has been run before for this project, uv
+finds all packages already in its local cache (\texttt{\textasciitilde/.cache/uv/})
+and completes in seconds without any network access.
+On a fresh machine, uv downloads every wheel from PyPI and the PyTorch index;
+given the size of the PyTorch package, this may take several minutes and
+require 1--2\,GB of disk space.
+
+\noindent\textbf{Note on long-term availability.}
+\texttt{uv.lock} pins exact version numbers but not the wheel binaries
+themselves.
+Should a pinned version be removed from its package index in the future,
+\texttt{uv sync} will fail on a machine that does not already hold it in the
+local cache.
+For the timescale of this project this is not a realistic concern, as package
+indexes rarely remove old versions within a few years of release.
+
 Verify that the installation succeeded:
 
 \begin{lstlisting}[language=bash]
