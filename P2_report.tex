@@ -632,6 +632,13 @@ The command should print \texttt{OK} with no errors.
 \subsection{Running the experiments}
 \label{app:run}
 
+Experiment naming follows the convention of~\cite{eclypse}, in which the three
+use cases are called UC1, UC2, and UC3, respectively.
+UC1 is a placement strategy comparison across infrastructure topologies and load
+levels; UC2 is a user-distribution scenario with a microservice application
+(the subject of the main result reported here); UC3 is a computer-vision
+machine-learning pipeline.
+
 Run the BestFit baseline simulation (12 months, $\approx$30--60 min):
 
 \begin{lstlisting}[language=bash]
@@ -644,9 +651,10 @@ Run the Active Inference simulation (12 months, $\approx$30--60 min):
 $ uv run python uc2_capable_12m_aif_experiment.py
 \end{lstlisting}
 
-Each run writes its output to a timestamped subdirectory under
-\texttt{results/} (e.g.\
-\texttt{results/uc2\_capable\_12m\_bestfit-YYYYMMDD\_HHMMSS/}).
+Each run writes its output to a timestamped subdirectory, e.g.:
+\begin{center}
+  \texttt{results/uc2\_capable\_12m\_bestfit-YYYYMMDD\_HHMMSS/}
+\end{center}
 That directory contains a \texttt{csv/} folder with per-tick simulation data
 and a \texttt{config.json} recording all parameter values.
 Table~\ref{tab:scripts} lists all experiment scripts and their purpose.
