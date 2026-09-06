@@ -661,11 +661,13 @@ Table~\ref{tab:scripts} lists all experiment scripts and their purpose.
 
 \begin{table}[ht]
 \centering
-\caption{Experiment scripts and their purpose.}
+\caption{Simulation and plot scripts with their purpose.}
 \label{tab:scripts}
 \begin{tabularx}{\linewidth}{lX}
 \toprule
 \textbf{Script} & \textbf{Description} \\
+\midrule
+\multicolumn{2}{l}{\textit{Simulation scripts (produce raw CSV output)}} \\
 \midrule
 \texttt{uc1\_experiment.py} &
   UC1: placement strategy comparison, 20 configurations \\
@@ -680,11 +682,26 @@ Table~\ref{tab:scripts} lists all experiment scripts and their purpose.
 \texttt{uc2\_capable\_aif\_experiment.py} &
   UC2 capable nodes, 3-month, AIF \\
 \texttt{uc2\_capable\_12m\_bestfit\_experiment.py} &
-  UC2 capable nodes, 12-month, BestFit (\textbf{main result}) \\
+  UC2 capable nodes, 12-month, BestFit \\
 \texttt{uc2\_capable\_12m\_aif\_experiment.py} &
-  UC2 capable nodes, 12-month, AIF (\textbf{main result}) \\
+  UC2 capable nodes, 12-month, AIF \\
 \texttt{uc3\_experiment.py} &
   UC3: image-prediction ML pipeline (requires Ray) \\
+\midrule
+\multicolumn{2}{l}{\textit{Plot scripts (read CSV output, write figures)}} \\
+\midrule
+\texttt{uc1\_fig6.py} &
+  UC1: latency comparison across strategies and load levels \\
+\texttt{uc2\_capable\_compare\_plot.py} &
+  UC2 capable nodes, 3-month: BestFit vs.\ AIF \\
+\texttt{uc2\_capable\_12m\_compare\_plot.py} &
+  UC2 capable nodes, 12-month: BestFit vs.\ AIF (\textbf{main result}) \\
+\texttt{uc2\_constrained\_compare\_plot.py} &
+  UC2 constrained nodes: BestFit vs.\ AIF (negative result) \\
+\texttt{uc2\_recovery\_compare\_plot.py} &
+  UC2 with node recovery: BestFit vs.\ AIF \\
+\texttt{uc3\_plot.py} &
+  UC3: prediction accuracy and CPU usage \\
 \bottomrule
 \end{tabularx}
 \end{table}
