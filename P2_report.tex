@@ -1,6 +1,10 @@
 %% P2_report.tex — Practical Course 2 project
 %% Active Inference as a Placement Strategy in the ECLYPSE
 %% Edge-Cloud Continuum Simulator
+%% Franz M. Krumenacker
+%% Matrikelnummer: 12137418
+%% September 2026
+%% University of Vienna, Software Architecture research group
 %%
 %% Build:  latexmk -pdf P2_report.tex
 %%         (or: pdflatex P2_report.tex && pdflatex P2_report.tex)
@@ -578,70 +582,74 @@ Patched ECLYPSE simulator &
 \end{center}
 
 The ECLYPSE repository is registered as a git submodule inside the experiment
-repository, pinned to commit \texttt{d6797a1}.
-Cloning the experiment repository and initialising the submodule is sufficient
-to reproduce the software environment; no manual patching of ECLYPSE is required.
+repository, pinned to commit \texttt{d6797a1} on branch \texttt{aif-placement}.
+The following steps reproduce the complete software environment from scratch.
 
 \subsection{Downloading}
 \label{app:download}
 
-Prerequisites: \texttt{git} $\geq$ 2.25, Python~3.12, and \texttt{uv}
-(the Python package manager).
-Install \texttt{uv} with:
+Install the \texttt{uv} Python package manager:
 
 \begin{lstlisting}[language=bash]
-curl -LsSf https://astral.sh/uv/install.sh | sh
+$ curl -LsSf https://astral.sh/uv/install.sh | sh
 \end{lstlisting}
 
-Clone the experiment repository together with the ECLYPSE submodule:
+Clone the experiment repository. The \texttt{--recurse-submodules} flag
+simultaneously clones the patched ECLYPSE fork into the \texttt{eclypse/}
+subdirectory:
 
 \begin{lstlisting}[language=bash]
-git clone --recurse-submodules \
-    git@github.com:franzm64/eclypse-aif-placement.git
-cd eclypse-aif-placement
+$ git clone --recurse-submodules \
+      git@github.com:franzm64/eclypse-aif-placement.git
 \end{lstlisting}
 
-If you have already cloned without \texttt{--recurse-submodules}:
+Enter the repository directory:
 
 \begin{lstlisting}[language=bash]
-git submodule update --init
+$ cd eclypse-aif-placement
 \end{lstlisting}
 
 \subsection{Building}
 \label{app:build}
 
-No compilation step is required --- the project is pure Python.
-Install all dependencies with:
+Install all Python dependencies. \texttt{uv sync} reads the pinned
+\texttt{uv.lock} file and installs every package at the exact version used
+during the study, including ECLYPSE itself (installed in editable mode from the
+\texttt{eclypse/} subdirectory):
 
 \begin{lstlisting}[language=bash]
-uv sync
+$ uv sync
 \end{lstlisting}
 
-\texttt{uv sync} installs ECLYPSE in editable mode from the
-\texttt{eclypse/} submodule, making both \texttt{eclypse.*} and
-\texttt{examples.*} importable automatically without any path manipulation.
-Verify the installation:
+Verify that the installation succeeded:
 
 \begin{lstlisting}[language=bash]
-uv run python -c "import eclypse; import numpy; print('OK')"
+$ uv run python -c "import eclypse; import numpy; print('OK')"
 \end{lstlisting}
+
+The command should print \texttt{OK} with no errors.
 
 \subsection{Running the experiments}
 \label{app:run}
 
-All experiment scripts are executed with \texttt{uv run python}.
-The primary result is the 12-month BestFit vs.\ AIF comparison:
+Run the BestFit baseline simulation (12 months, $\approx$30--60 min):
 
 \begin{lstlisting}[language=bash]
-uv run python uc2_capable_12m_bestfit_experiment.py
-uv run python uc2_capable_12m_aif_experiment.py
+$ uv run python uc2_capable_12m_bestfit_experiment.py
 \end{lstlisting}
 
-Each run takes approximately 30--60 minutes.
-Results are written to a timestamped subdirectory under \texttt{results/}
-containing a \texttt{csv/} directory with per-tick output and a
-\texttt{config.json} recording all simulation parameters.
-Table~\ref{tab:scripts} lists all experiment scripts.
+Run the Active Inference simulation (12 months, $\approx$30--60 min):
+
+\begin{lstlisting}[language=bash]
+$ uv run python uc2_capable_12m_aif_experiment.py
+\end{lstlisting}
+
+Each run writes its output to a timestamped subdirectory under
+\texttt{results/} (e.g.\
+\texttt{results/uc2\_capable\_12m\_bestfit-YYYYMMDD\_HHMMSS/}).
+That directory contains a \texttt{csv/} folder with per-tick simulation data
+and a \texttt{config.json} recording all parameter values.
+Table~\ref{tab:scripts} lists all experiment scripts and their purpose.
 
 \begin{table}[ht]
 \centering
@@ -664,9 +672,9 @@ Table~\ref{tab:scripts} lists all experiment scripts.
 \texttt{uc2\_capable\_aif\_experiment.py} &
   UC2 capable nodes, 3-month, AIF \\
 \texttt{uc2\_capable\_12m\_bestfit\_experiment.py} &
-  UC2 capable nodes, 12-month, BestFit (main result) \\
+  UC2 capable nodes, 12-month, BestFit (\textbf{main result}) \\
 \texttt{uc2\_capable\_12m\_aif\_experiment.py} &
-  UC2 capable nodes, 12-month, AIF (main result) \\
+  UC2 capable nodes, 12-month, AIF (\textbf{main result}) \\
 \texttt{uc3\_experiment.py} &
   UC3: image-prediction ML pipeline (requires Ray) \\
 \bottomrule
@@ -677,25 +685,36 @@ Table~\ref{tab:scripts} lists all experiment scripts.
 \label{app:plots}
 
 Each experiment family has a corresponding plot script.
-Before running, open the plot script and update the \texttt{BESTFIT\_CSV} and
-\texttt{AIF\_CSV} path constants at the top to point at the timestamped
-run directories produced above.
+Before running a plot script, open it in a text editor and update the two path
+constants near the top of the file --- \texttt{BESTFIT\_CSV} and
+\texttt{AIF\_CSV} --- to point at the timestamped \texttt{csv/} directories
+produced in the previous step.
 
 Generate the main comparison figure (Figure~\ref{fig:uc2_12m}):
 
 \begin{lstlisting}[language=bash]
-uv run python uc2_capable_12m_compare_plot.py
+$ uv run python uc2_capable_12m_compare_plot.py
 \end{lstlisting}
 
-The output is written to\\
+The figure is written to\\
 \texttt{results/uc2\_capable\_12m/figures/fig\_uc2\_capable\_12m\_bestfit\_vs\_aif.png}.
 
-Remaining plot scripts:
+Generate the UC1 placement-strategy comparison figure:
 
 \begin{lstlisting}[language=bash]
-uv run python uc1_fig6.py
-uv run python uc2_capable_compare_plot.py   # 3-month version
-uv run python uc3_plot.py
+$ uv run python uc1_fig6.py
+\end{lstlisting}
+
+Generate the 3-month BestFit vs.\ AIF comparison figure:
+
+\begin{lstlisting}[language=bash]
+$ uv run python uc2_capable_compare_plot.py
+\end{lstlisting}
+
+Generate the UC3 accuracy and CPU usage figures:
+
+\begin{lstlisting}[language=bash]
+$ uv run python uc3_plot.py
 \end{lstlisting}
 
 \end{appendices}
